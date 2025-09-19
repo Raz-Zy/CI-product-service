@@ -33,7 +33,7 @@ pipeline{
             steps{
                 script{
                     withCredentials([usernamePassword(credentialsId: 'github-token', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                        git credentialsId: 'git-token', url: 'https://github.com/Raz-Zy/CD-Spring-Helm.git'
+                        git credentialsId: 'github-token', url: 'https://github.com/Raz-Zy/CD-product-service.git'
                         echo "Update Image Tag"
                         sh 'sed -i "s/tag:.*/tag: ${TAG}.${VERSION}/" values.yaml'
                         echo "Git Config for pushing latest update."
@@ -42,7 +42,7 @@ pipeline{
                         sh "git commit -am 'Update image tag'"
                         echo "user name: $USERNAME"
                         echo "user password: $PASSWORD"
-                        sh "git push https://${USERNAME}:${PASSWORD}@github.com/Raz-Zy/CI-product-service.git"
+                        sh "git push https://${USERNAME}:${PASSWORD}@github.com/Raz-Zy/CD-product-service.git"
                     }
                 }
             }
